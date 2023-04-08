@@ -43,4 +43,16 @@ npm run test:e2e
 # Check results
 npm run e2e-report
 ```
-
+### Unit tests
+```shell
+# Setup
+npm install
+```
+```shell
+# Runner
+npm test --watchAll=false
+```
+```shell
+# Coverage
+npm run coverage
+```
