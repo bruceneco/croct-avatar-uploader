@@ -37,10 +37,10 @@ npx playwright install
 ```
 ```shell
 # Runner
-npm test
+npm run test:e2e
 ```
 ```shell
 # Check results
-npm run test-report
+npm run e2e-report
 ```
 
