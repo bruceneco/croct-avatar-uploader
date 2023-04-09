@@ -3,7 +3,7 @@ import { DefaultTheme } from "styled-components";
 export const lightTheme: DefaultTheme = {
   colors: {
     background: {
-      main: "#E5E5E5",
+      main: "#FFF",
       secondary: "#F2F5F8",
       fill: "#C3CBD5",
     },
