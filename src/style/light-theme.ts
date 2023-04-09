@@ -41,6 +41,7 @@ export const lightTheme: DefaultTheme = {
   spacing: {
     xl: "3.6rem",
     l: "3.2rem",
-    m: "2.8rem",
+    md: "2.8rem",
+    xsm: "1.2rem",
   },
 };
