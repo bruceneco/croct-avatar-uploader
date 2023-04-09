@@ -1,42 +1,60 @@
-import { useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 
 export interface DropFilesHook {
   files: File[];
   dragging: boolean;
+  dropRef: Ref<HTMLElement>;
   dropZoneProps: {
-    onDrop: (e: React.DragEvent) => void;
-    onDragLeave: (e: React.DragEvent) => void;
-    onDragEnter: (e: React.DragEvent) => void;
+    onDrop: (e: DragEvent) => void;
+    onDragLeave: (e: DragEvent) => void;
+    onDragOver: (e: DragEvent) => void;
   };
 }
 
 export default function useDropFiles(): DropFilesHook {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const drop = useRef<HTMLElement>(null);
 
-  const onDrop = (e: React.DragEvent) => {
+  const onDrop = (e: DragEvent) => {
     e.preventDefault();
     setDragging(false);
-    setFiles(Array.from(e.dataTransfer.files));
+    setFiles(Array.from(e.dataTransfer?.files || []));
   };
 
-  const onDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDragging(false);
-  };
-
-  const onDragEnter = (e: React.DragEvent) => {
+  const onOver = (e: DragEvent) => {
     e.preventDefault();
     setDragging(true);
+  };
+  useEffect(() => {
+    if (drop.current) {
+      drop.current.addEventListener("dragleave", onDragLeave);
+      drop.current.addEventListener("dragover", onOver);
+      drop.current.addEventListener("drop", onDrop);
+
+      return () => {
+        if (drop.current) {
+          drop.current.removeEventListener("dragleave", onDragLeave);
+          drop.current.removeEventListener("drop", onDrop);
+          drop.current.removeEventListener("dragover", onOver);
+        }
+      };
+    }
+  }, []);
+
+  const onDragLeave = (e: DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
   };
 
   return {
     files,
     dragging,
+    dropRef: drop,
     dropZoneProps: {
       onDrop,
       onDragLeave,
-      onDragEnter,
+      onDragOver: onOver,
     },
   };
 }

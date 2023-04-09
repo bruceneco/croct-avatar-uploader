@@ -1,5 +1,5 @@
 import { assert, test } from "vitest";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import useDropFiles from "./useDropFiles";
 
 test("useDropFiles returns expected initial state", () => {
@@ -16,22 +16,21 @@ test("useDropFiles updates state when file is dropped", () => {
   const dropEvent = {
     preventDefault() {},
     dataTransfer: { files: [file] },
-  } as unknown as React.DragEvent;
-  result.current.dropZoneProps.onDrop(dropEvent);
-  rerender();
+  } as unknown as DragEvent;
+  act(() => result.current.dropZoneProps.onDrop(dropEvent));
   assert.deepEqual<File[]>(result.current.files, [file]);
   assert.equal<boolean>(result.current.dragging, false);
 });
 
 test("useDropFiles sets dragging state when drag event occurs", () => {
   const { result, rerender } = renderHook(() => useDropFiles());
-  const dragEvent = { preventDefault() {} } as React.DragEvent;
+  const dragEvent = {
+    preventDefault() {},
+  } as DragEvent;
 
-  result.current.dropZoneProps.onDragLeave(dragEvent);
-  rerender();
+  act(() => result.current.dropZoneProps.onDragLeave(dragEvent));
   assert.equal<boolean>(result.current.dragging, false);
 
-  result.current.dropZoneProps.onDragEnter(dragEvent);
-  rerender();
+  act(() => result.current.dropZoneProps.onDragOver(dragEvent));
   assert.equal<boolean>(result.current.dragging, true);
 });
