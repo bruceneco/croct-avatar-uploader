@@ -4,5 +4,9 @@ import { lightTheme } from "../../style/light-theme";
 import { ReactNode } from "react";
 
 export const customRender = (component: ReactNode) => {
-  return render(<ThemeProvider theme={lightTheme}>{component}</ThemeProvider>);
+  const theme = lightTheme;
+  return {
+    ...render(<ThemeProvider theme={theme}>{component}</ThemeProvider>),
+    theme,
+  };
 };
