@@ -1,17 +1,20 @@
 import * as S from "./Card.styles";
-import { ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 
 interface CardProps extends React.HTMLProps<HTMLDivElement> {
   children?: ReactNode;
-  ref?: React.RefObject<HTMLDivElement>;
   as?: undefined;
   dotted?: boolean;
 }
 
-export default function Card({ children, dotted = false, ...rest }: CardProps) {
-  return (
-    <S.Main dotted={dotted} {...rest}>
-      {children}
-    </S.Main>
-  );
-}
+const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ children, dotted = false, ...rest }, ref) => {
+    return (
+      <S.Main ref={ref} dotted={dotted} {...rest}>
+        {children}
+      </S.Main>
+    );
+  }
+);
+
+export default Card;
