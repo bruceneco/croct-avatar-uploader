@@ -5,20 +5,24 @@ import Card from "./Card";
 const meta: Meta<typeof Card> = {
   title: "Card",
   component: Card,
+  argTypes: {
+    dotted: {
+      description: "Add dots on the border of card.",
+      type: "boolean",
+    },
+  },
+  parameters: {
+    controls: { include: ["dotted"] },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Card>;
 
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
- * to learn how to use render functions.
- */
-export const Standard: Story = {
-  render: () => <Card />,
-};
+export const Standard: Story = {};
 
 export const Dotted: Story = {
-  render: () => <Card dotted />,
+  args: {
+    dotted: true,
+  },
 };
