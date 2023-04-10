@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 interface LoadImageHook {
   error?: Error;
   imageURL?: string;
+  reset: () => void;
 }
 
 export default function useLoadImage(
@@ -28,6 +29,9 @@ export default function useLoadImage(
       }
     }
   }, [image, ...allowedTypes]);
-
-  return { error, imageURL };
+  const reset = () => {
+    setError(undefined);
+    setImageURL(undefined);
+  };
+  return { error, imageURL, reset };
 }
