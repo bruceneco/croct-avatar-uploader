@@ -36,7 +36,7 @@ export const lightTheme: DefaultTheme = {
       sm: "1.4rem",
       md: "1.6rem",
     },
-    lineHeight: { main: "2.52rem" },
+    lineHeight: { sm: "2.52rem", md: "2.88rem" },
   },
   spacing: {
     xl: "3.6rem",
