@@ -20,6 +20,10 @@ export const lightTheme: DefaultTheme = {
     border: {
       main: "#C7CDD3",
     },
+    bar: {
+      primary: "#3F80FF",
+      secondary: "#B9D1FF",
+    },
   },
   sizes: {
     border: ".2rem",
