@@ -16,6 +16,7 @@ export const lightTheme: DefaultTheme = {
       highlight: "#3D485F",
       primary: "#495567",
       secondary: "#677489",
+      white: "#fff",
     },
     border: {
       main: "#C7CDD3",
