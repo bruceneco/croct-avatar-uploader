@@ -1,5 +1,5 @@
 import useLoadImage from "./useLoadImage";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { afterAll } from "vitest";
 
 describe("useLoadImage", () => {
@@ -68,5 +68,21 @@ describe("useLoadImage", () => {
     const { result } = renderHook(() => useLoadImage(jpegImage));
     expect(result.current.imageURL).toBeUndefined();
     expect(result.current.error?.message).toBe("Sorry, the upload failed.");
+  });
+  it("should reset error", () => {
+    URL.createObjectURL = vi.fn(() => {
+      throw new Error("Error creating URL");
+    });
+
+    const { result } = renderHook(() => useLoadImage(jpegImage));
+    act(() => result.current.reset());
+    assert.isUndefined(result.current.error);
+  });
+  it("should reset image url", () => {
+    const { result } = renderHook(() =>
+      useLoadImage(gifImage, ["image/jpeg", "image/png", "image/gif"])
+    );
+    act(() => result.current.reset());
+    assert.isUndefined(result.current.imageURL);
   });
 });
