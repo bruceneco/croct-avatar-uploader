@@ -11,7 +11,7 @@ export interface DropFilesHook {
   };
 }
 
-export default function useDropFiles(): DropFilesHook {
+export default function useDropFiles(allowDrop = true): DropFilesHook {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const drop = useRef<HTMLElement>(null);
@@ -27,7 +27,7 @@ export default function useDropFiles(): DropFilesHook {
     setDragging(true);
   };
   useEffect(() => {
-    if (drop.current) {
+    if (drop.current && allowDrop) {
       drop.current.addEventListener("dragleave", onDragLeave);
       drop.current.addEventListener("dragover", onOver);
       drop.current.addEventListener("drop", onDrop);
@@ -40,7 +40,7 @@ export default function useDropFiles(): DropFilesHook {
         }
       };
     }
-  }, []);
+  }, [drop, allowDrop]);
 
   const onDragLeave = (e: DragEvent) => {
     e.preventDefault();
