@@ -4,6 +4,7 @@ export interface DropFilesHook {
   files: File[];
   dragging: boolean;
   dropRef: Ref<HTMLElement>;
+  reset: () => void;
   dropZoneProps: {
     onDrop: (e: DragEvent) => void;
     onDragLeave: (e: DragEvent) => void;
@@ -15,7 +16,10 @@ export default function useDropFiles(allowDrop = true): DropFilesHook {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const drop = useRef<HTMLElement>(null);
-
+  const reset = () => {
+    setFiles([]);
+    setDragging(false);
+  };
   const onDrop = (e: DragEvent) => {
     e.preventDefault();
     setDragging(false);
@@ -49,6 +53,7 @@ export default function useDropFiles(allowDrop = true): DropFilesHook {
 
   return {
     files,
+    reset,
     dragging,
     dropRef: drop,
     dropZoneProps: {
