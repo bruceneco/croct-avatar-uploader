@@ -2,9 +2,9 @@ import * as S from "./Button.styles";
 import { ButtonHTMLAttributes } from "react";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary";
+  variant?: "primary";
 }
 
-export default function Button({ ...rest }: ButtonProps) {
-  return <S.Main {...rest} />;
+export default function Button({ variant = "primary", ...rest }: ButtonProps) {
+  return <S.Main variant={variant} {...rest} />;
 }

@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import { ButtonProps } from "./Button";
 
 export const Main = styled.button<Pick<ButtonProps, "variant">>`
-  ${({ theme, variant = "primary" }) => css`
-    background: ${theme.colors.button[variant]};
+  ${({ theme, variant }) => css`
+    background: ${theme.colors.button[variant!]};
     color: ${theme.colors.text.white};
     border: none;
     border-radius: ${theme.sizes.radius.button};
