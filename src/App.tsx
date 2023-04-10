@@ -1,12 +1,13 @@
 import { ThemeProvider } from "styled-components";
-import { lightTheme } from "./style/light-theme";
+import AvatarUploader from "./components/AvatarUploader";
 import { GlobalStyle } from "./style/global";
-import * as S from "./App.styles";
+import { lightTheme } from "./style/light-theme";
+
 function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
-      <S.Main>Works.</S.Main>
+      <AvatarUploader onUpload={console.log} />
     </ThemeProvider>
   );
 }
