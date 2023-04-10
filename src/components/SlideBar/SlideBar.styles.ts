@@ -5,6 +5,7 @@ export const InputSlider = styled(Slider)`
   ${({ theme }) => css`
     height: 2px !important;
     background: ${theme.colors.bar.secondary} !important;
+    margin: ${theme.spacing.xsm} 0 !important;
     ${reset};
 
     .rangeslider {
