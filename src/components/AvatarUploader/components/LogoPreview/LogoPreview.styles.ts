@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, {css} from "styled-components";
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
@@ -11,14 +11,27 @@ export const Wrapper = styled.div`
     align-items: center;
     overflow: hidden;
     position: relative;
-  `}
-`;
 
-export const Logo = styled.img`
-  ${({ theme }) => css`
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+    & > * {
+      position: absolute;
+    }
+
+    & > img {
+      max-width: 100%;
+    }
+
+    .cropper-view-box,
+    .cropper-face {
+
+      border-radius: 50%;
+
+    }
+
+    .cropper-view-box {
+      position: absolute;
+      outline: 0;
+      box-shadow: none;
+
+    }
   `}
 `;
