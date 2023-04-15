@@ -1,10 +1,11 @@
-import { Ref, useEffect, useRef, useState } from "react";
+import {Ref, useCallback, useEffect, useRef, useState} from "react";
 
 export interface DropFilesHook {
   files: File[];
   dragging: boolean;
   dropRef: Ref<HTMLElement>;
   reset: () => void;
+  changeFiles: (f: File[]) => void;
   dropZoneProps: {
     onDrop: (e: DragEvent) => void;
     onDragLeave: (e: DragEvent) => void;
@@ -51,8 +52,13 @@ export default function useDropFiles(allowDrop = true): DropFilesHook {
     setDragging(false);
   };
 
+  const changeFiles = useCallback((files: File[]) => {
+    setFiles(files)
+  }, []);
+
   return {
     files,
+    changeFiles,
     reset,
     dragging,
     dropRef: drop,
