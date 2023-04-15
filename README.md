@@ -50,7 +50,7 @@ npm install
 ```
 ```shell
 # Runner
-npm test --watchAll=false
+npm test
 ```
 ```shell
 # Coverage
