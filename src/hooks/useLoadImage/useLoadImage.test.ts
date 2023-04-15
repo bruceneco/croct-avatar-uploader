@@ -1,6 +1,6 @@
 import useLoadImage from "./useLoadImage";
-import { act, renderHook } from "@testing-library/react";
-import { afterAll } from "vitest";
+import {act, renderHook} from "@testing-library/react";
+import {afterAll} from "vitest";
 
 describe("useLoadImage", () => {
   const jpegImage = new File([new Uint8Array(4)], "test.jpeg", {
@@ -25,20 +25,27 @@ describe("useLoadImage", () => {
     URL.createObjectURL = originalCreateObjectURL;
   });
   it("should return the image URL and no error when given a valid image", () => {
-    const { result, rerender } = renderHook(() => useLoadImage(jpegImage));
+    const {result, rerender} = renderHook(() => useLoadImage(jpegImage));
     expect(result.current.imageURL).toBeTruthy();
     expect(result.current.error).toBeUndefined();
   });
 
   it("should return no image URL and an error when given an invalid image type", () => {
-    const { result } = renderHook(() => useLoadImage(invalidImage));
+    const {result} = renderHook(() => useLoadImage(invalidImage));
     expect(result.current.imageURL).toBeUndefined();
     expect(result.current.error?.message).toBe("Invalid image format.");
   });
 
+  it('should reset error on success image', () => {
+    const {result, rerender} = renderHook((props) => useLoadImage(props), {initialProps: invalidImage});
+    assert.exists(result.current.error)
+    rerender(jpegImage)
+    assert.isUndefined(result.current.error)
+  });
+
   it("should return no image URL and an error when given an invalid image type in an array of allowed types", () => {
-    const { result } = renderHook(() =>
-      useLoadImage(invalidImage, ["image/jpeg", "image/png", "image/gif"])
+    const {result} = renderHook(() =>
+        useLoadImage(invalidImage, ["image/jpeg", "image/png", "image/gif"])
     );
     expect(result.current.imageURL).toBeUndefined();
     expect(result.current.error?.message).toBe("Invalid image format.");
