@@ -9,7 +9,7 @@ describe('AvatarUploader', () => {
     it('renders drop instructions on initial render', () => {
         const mockedUseAvatarUploader = useAvatarUploader as Mock;
         mockedUseAvatarUploader.mockReturnValue({
-            dragDrop: {dropRef: {current: null}, loadImageError: undefined},
+            dragDrop: {dropRef: {current: null}, loadImageError: undefined, accept: []},
             started: false,
             handleTryAgain: vi.fn(),
             cropper: {result: undefined, imageURL: undefined},
@@ -22,7 +22,7 @@ describe('AvatarUploader', () => {
     it('renders error message when there is an error loading the image', () => {
         const mockedUseAvatarUploader = useAvatarUploader as Mock;
         mockedUseAvatarUploader.mockReturnValue({
-            dragDrop: {dropRef: {current: null}, loadImageError: new Error('Error loading image')},
+            dragDrop: {dropRef: {current: null}, loadImageError: new Error('Error loading image'), accept: []},
             started: false,
             handleTryAgain: vi.fn(),
             cropper: {result: undefined, imageURL: undefined},
@@ -35,7 +35,7 @@ describe('AvatarUploader', () => {
     it('renders image with crop options when an image is loaded', () => {
         const mockedUseAvatarUploader = useAvatarUploader as Mock;
         mockedUseAvatarUploader.mockReturnValue({
-            dragDrop: {dropRef: {current: null}, loadImageError: undefined},
+            dragDrop: {dropRef: {current: null}, loadImageError: undefined, accept: []},
             started: true,
             handleTryAgain: vi.fn(),
             cropper: {result: undefined, imageURL: 'https://example.com/image.jpg'},
@@ -48,7 +48,7 @@ describe('AvatarUploader', () => {
     it('renders image with download instructions after saving', async () => {
         const mockedUseAvatarUploader = useAvatarUploader as Mock;
         mockedUseAvatarUploader.mockReturnValue({
-            dragDrop: {dropRef: {current: null}, loadImageError: undefined},
+            dragDrop: {dropRef: {current: null}, loadImageError: undefined, accept: []},
             started: true,
             handleTryAgain: vi.fn(),
             cropper: {result: 'https://example.com/cropped-image.jpg', imageURL: undefined},
