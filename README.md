@@ -43,6 +43,7 @@ npm run test:e2e
 # Check results
 npm run e2e-report
 ```
+Then access http://localhost:9323
 ### Unit tests
 ```shell
 # Setup
