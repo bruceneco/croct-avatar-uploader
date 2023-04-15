@@ -4,17 +4,17 @@ import picture from "../../../../assets/picture.svg";
 
 export default function DropInstructions() {
   return (
-    <S.Wrapper>
-      <Text
-        content={"Organization Logo"}
-        startAdornment={
-          <S.PictureImg
-            src={picture}
-            alt="Image of a picture black and white"
-          />
-        }
-        weight={500}
-      />
+    <S.Wrapper data-testid={"drop-instructions"}>
+        <Text
+            content={"Organization Logo"}
+            startAdornment={
+                <S.PictureImg
+                    src={picture}
+                    alt="Image of a picture black and white"
+                />
+            }
+            weight={500}
+        />
       <Text
         content={"Drop the image here or click to browse."}
         color={"secondary"}
