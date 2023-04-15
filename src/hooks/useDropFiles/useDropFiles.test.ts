@@ -1,7 +1,6 @@
-import { assert, test } from "vitest";
-import { act, renderHook } from "@testing-library/react";
+import {assert, test} from "vitest";
+import {act, renderHook} from "@testing-library/react";
 import useDropFiles from "./useDropFiles";
-import { Simulate } from "react-dom/test-utils";
 
 describe("useDropFiles", () => {
   const file = new File([], "test.txt", { type: "text/plain" });
@@ -41,7 +40,7 @@ describe("useDropFiles", () => {
   it("should reset dragging and files on call reset", () => {
     const {
       result: {
-        current: { reset, dropZoneProps, dragging, files },
+        current: {reset, dropZoneProps, dragging, files},
       },
     } = renderHook(() => useDropFiles());
     act(() => dropZoneProps.onDrop(dropEvent));
@@ -49,5 +48,14 @@ describe("useDropFiles", () => {
     act(() => reset());
     assert.deepEqual(files, []);
     assert.isFalse(dragging);
+  });
+
+  it('should change files on call function', () => {
+    const f = [file]
+    const {
+      result,
+    } = renderHook(() => useDropFiles());
+    act(() => result.current.changeFiles(f));
+    assert.deepEqual(f, result.current.files)
   });
 });
