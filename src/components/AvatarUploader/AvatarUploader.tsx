@@ -19,7 +19,8 @@ export default function AvatarUploader({onUpload}: AvatarUploaderProps) {
         started,
         handleTryAgain,
         cropper,
-        handleSave
+        handleSave,
+        inputImageRef
     } = useAvatarUploader({onUpload})
     const steps = {
         "drop": !started && !cropper.result,
@@ -31,9 +32,13 @@ export default function AvatarUploader({onUpload}: AvatarUploaderProps) {
         <S.SizedCard
             ref={dragDrop.dropRef as Ref<HTMLDivElement>}
             onClose={started ? handleTryAgain : undefined}
+            onClick={() => dragDrop.allowDrop && inputImageRef?.current?.click()}
             dotted
         >
-            {steps.drop && <DropInstructions data-testid={"drop-instructions"}/>}
+            {steps.drop && (<>
+                <DropInstructions
+                    data-testid={"drop-instructions"}/>
+            </>)}
             {steps.error && (
                 <S.Grid>
                     <LogoPreview invalid/>
@@ -69,6 +74,7 @@ export default function AvatarUploader({onUpload}: AvatarUploaderProps) {
                     <DropInstructions/>
                 </S.Grid>
             )}
+            <input hidden ref={inputImageRef} type="file" accept={dragDrop.accept.join(",")}/>
         </S.SizedCard>
     );
 }
