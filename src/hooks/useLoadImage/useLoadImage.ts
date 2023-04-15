@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 interface LoadImageHook {
   error?: Error;
@@ -23,6 +23,7 @@ export default function useLoadImage(
       }
       try {
         const objectURL = URL.createObjectURL(image);
+        setError(undefined);
         setImageURL(objectURL);
       } catch (err) {
         setError(new Error("Sorry, the upload failed."));
