@@ -23,8 +23,10 @@ describe('UseRoundCropper', () => {
     it('should return a data url from canvas crop', () => {
         const {result} = renderHook((props) => useRoundCropper(props), {initialProps: {imageRef: mockImageRef}})
         let dataUrl: string | undefined;
-        act(() => result.current.initCropper());
-        act(() => dataUrl = result.current.getCrop())
+        act(() => {
+            result.current.initCropper()
+            dataUrl = result.current.getCrop()
+        });
         assert.exists(dataUrl)
     });
     it('should return to inital zoom on reset', () => {

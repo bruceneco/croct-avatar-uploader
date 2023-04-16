@@ -43,9 +43,11 @@ describe("useDropFiles", () => {
         current: {reset, dropZoneProps, dragging, files},
       },
     } = renderHook(() => useDropFiles());
-    act(() => dropZoneProps.onDrop(dropEvent));
-    act(() => dropZoneProps.onDragOver(dragEvent));
-    act(() => reset());
+    act(() => {
+      dropZoneProps.onDrop(dropEvent)
+      dropZoneProps.onDragOver(dragEvent)
+      reset()
+    });
     assert.deepEqual(files, []);
     assert.isFalse(dragging);
   });
