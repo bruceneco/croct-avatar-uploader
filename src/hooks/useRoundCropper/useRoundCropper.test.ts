@@ -29,7 +29,7 @@ describe('UseRoundCropper', () => {
         });
         assert.exists(dataUrl)
     });
-    it('should return to inital zoom on reset', () => {
+    it('should return to initial zoom on reset', () => {
         const {result} = renderHook((props) => useRoundCropper(props), {initialProps: {imageRef: mockImageRef}})
         act(() => result.current.changeZoom(2));
         assert.equal(result.current.zoom, 2)
