@@ -9,7 +9,9 @@
 </p>
 
 ## Technologies
-* Vite (React, TS/SWC)
+* React (Vite, TS/SWC)
+* Storybook (Design/Component docs)
+* Vitest + RTL (Unit tests)
 * Playwright (E2E)
 
 ## Scripts
