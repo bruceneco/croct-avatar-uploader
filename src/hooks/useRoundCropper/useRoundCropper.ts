@@ -8,8 +8,9 @@ interface CropperHook {
 }
 
 export default function useRoundCropper({imageRef}: CropperHook) {
+    const initialZoom = 1;
     const [cropper, setCropper] = useState<Cropper>();
-    const [zoom, setZoom] = useState<number>(1);
+    const [zoom, setZoom] = useState<number>(initialZoom);
 
     const initCropper = useCallback(() => {
         const size = convertRemToPixels(11.3)
@@ -43,8 +44,12 @@ export default function useRoundCropper({imageRef}: CropperHook) {
         return roundedCanvas?.toDataURL();
     }, [cropper]);
 
+    const resetZoom = useCallback(() => {
+        setZoom(initialZoom)
+    }, []);
+
     return {
-        initCropper, changeZoom, zoom, getCrop, cropper
+        initCropper, changeZoom, zoom, getCrop, cropper, resetZoom
     }
 }
 
