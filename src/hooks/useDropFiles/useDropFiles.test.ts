@@ -21,7 +21,7 @@ describe("useDropFiles", () => {
   });
 
   test("should update state when file is dropped", () => {
-    const { result, rerender } = renderHook(() => useDropFiles());
+    const {result} = renderHook(() => useDropFiles());
 
     act(() => result.current.dropZoneProps.onDrop(dropEvent));
     assert.deepEqual<File[]>(result.current.files, [file]);

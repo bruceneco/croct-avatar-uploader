@@ -1,5 +1,5 @@
-import styled, { css, DefaultTheme } from "styled-components";
-import { TextProps } from "./Text";
+import styled, {css, DefaultTheme} from "styled-components";
+import {TextProps} from "./Text";
 
 type WrapperProps = Pick<
   TextProps,
@@ -33,5 +33,5 @@ const variants = {
     font-weight: 500;
     color: ${theme.colors.text.highlight};
   `,
-  text: (theme: DefaultTheme) => css``,
+  text: (_: DefaultTheme) => css``,
 };

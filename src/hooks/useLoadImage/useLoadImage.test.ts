@@ -25,7 +25,7 @@ describe("useLoadImage", () => {
     URL.createObjectURL = originalCreateObjectURL;
   });
   it("should return the image URL and no error when given a valid image", () => {
-    const {result, rerender} = renderHook(() => useLoadImage(jpegImage));
+    const {result} = renderHook(() => useLoadImage(jpegImage));
     expect(result.current.imageURL).toBeTruthy();
     expect(result.current.error).toBeUndefined();
   });
