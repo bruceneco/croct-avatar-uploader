@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 import picture from "../../assets/picture.svg";
 import Text from "./Text";
 
@@ -20,11 +20,11 @@ export const Standard: Story = {
 };
 
 export const WithAdornment: Story = {
-  storyName: "With Adornment",
+  name: "With Adornment",
   args: {
     content: "With adornment",
     startAdornment: (
-      <img src={picture} alt={"Image of a picture, black and white"} />
+        <img src={picture} alt={"Image of a picture, black and white"}/>
     ),
   },
 };
