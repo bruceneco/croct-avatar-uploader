@@ -37,12 +37,13 @@ export default function useAvatarUploader({onUpload}: AvatarUploaderProps): Avat
     const [result, setResult] = useState<string>();
     const imageRef = useRef<HTMLImageElement>(null);
     const inputImageRef = useRef<HTMLInputElement>(null);
-    const {initCropper, changeZoom, zoom, getCrop} = useRoundCropper({imageRef})
+    const {initCropper, changeZoom, zoom, getCrop, resetZoom} = useRoundCropper({imageRef})
     const handleSave = () => {
         const result = getCrop()
         if (result) {
             resetFiles()
             resetLoadImage()
+            resetZoom()
             setResult(result)
             onUpload(result)
         }
@@ -68,6 +69,7 @@ export default function useAvatarUploader({onUpload}: AvatarUploaderProps): Avat
         setResult(undefined)
         resetLoadImage();
         resetFiles();
+        resetZoom();
     }, []);
 
     const started = files.length !== 0;
