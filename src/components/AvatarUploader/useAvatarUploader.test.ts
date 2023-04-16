@@ -1,12 +1,15 @@
 import useAvatarUploader from './useAvatarUploader';
 import {act, renderHook} from "@testing-library/react";
 
+const resetLoadImage = vi.fn();
+const resetDropFiles = vi.fn();
+const resetZoom = vi.fn();
 vi.mock('../../hooks/useDropFiles', () => ({
     __esModule: true,
     default: () => ({
         dropRef: {current: document.createElement('div')},
         files: [],
-        reset: vi.fn(),
+        reset: resetDropFiles,
     })
 }));
 
@@ -15,7 +18,7 @@ vi.mock('../../hooks/useLoadImage', () => ({
     default: () => ({
         imageURL: 'mockImageUrl',
         error: null,
-        reset: vi.fn(),
+        reset: resetLoadImage,
     })
 }));
 
@@ -25,12 +28,16 @@ vi.mock('../../hooks/useRoundCropper', () => ({
         initCropper: vi.fn(),
         changeZoom: vi.fn(),
         zoom: 1,
+        resetZoom: resetZoom,
         getCrop: vi.fn(() => 'mockCrop'),
     })
 }));
 
 describe('useAvatarUploader', () => {
     const onUpload = vi.fn();
+    beforeEach(() => {
+        vi.resetAllMocks()
+    });
 
     it('should return initial values', () => {
         const {result} = renderHook(() => useAvatarUploader({onUpload}));
@@ -42,15 +49,27 @@ describe('useAvatarUploader', () => {
         expect(result.current.cropper.zoom).toBe(1);
     });
 
-    it('should call resetLoadImage and resetFiles when try again is clicked', () => {
+    it('should reset values on try again', () => {
         const {result} = renderHook(() => useAvatarUploader({onUpload}));
 
         act(() => {
             result.current.handleTryAgain();
         });
 
-        expect(result.current.cropper.result).toBeUndefined();
-        expect(result.current.cropper.imageURL).toBe('mockImageUrl');
+        expect(resetZoom).toHaveBeenCalledOnce()
+        expect(resetDropFiles).toHaveBeenCalledOnce()
+        expect(resetLoadImage).toHaveBeenCalledOnce()
+    });
+    it('should reset values on save', () => {
+        const {result} = renderHook(() => useAvatarUploader({onUpload}));
+
+        act(() => {
+            result.current.handleSave();
+        });
+
+        expect(resetZoom).toHaveBeenCalledOnce()
+        expect(resetDropFiles).toHaveBeenCalledOnce()
+        expect(resetLoadImage).toHaveBeenCalledOnce()
     });
 
     it('should call onUpload when handleSave is clicked', () => {
