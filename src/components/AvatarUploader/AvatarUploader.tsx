@@ -7,6 +7,7 @@ import SlideBar from "../SlideBar";
 import Text from "../Text";
 import 'cropperjs/dist/cropper.css';
 import useAvatarUploader from "./useAvatarUploader";
+import AnimateEntry from "../animation/AnimateEntry";
 
 
 interface AvatarUploaderProps {
@@ -35,21 +36,22 @@ export default function AvatarUploader({onUpload}: AvatarUploaderProps) {
             onClick={() => dragDrop.allowDrop && inputImageRef?.current?.click()}
             dotted
         >
-            {steps.drop && (<>
+            {steps.drop && (<AnimateEntry>
                 <DropInstructions
                     data-testid={"drop-instructions"}/>
-            </>)}
-            {steps.error && (
-                <S.Grid>
-                    <LogoPreview invalid/>
-                    <ErrorMessage
-                        message={dragDrop.loadImageError!.message}
-                        onTryAgain={handleTryAgain}
-                    />
-                </S.Grid>
+            </AnimateEntry>)}
+            {steps.error && (<AnimateEntry>
+                    <S.Grid>
+                        <LogoPreview invalid/>
+                        <ErrorMessage
+                            message={dragDrop.loadImageError!.message}
+                            onTryAgain={handleTryAgain}
+                        />
+                    </S.Grid>
+                </AnimateEntry>
             )}
             {steps.crop && (
-                <S.Grid>
+                <AnimateEntry><S.Grid>
                     <LogoPreview
                         src={cropper.imageURL}
                         imageRef={cropper.imageRef}
@@ -66,12 +68,12 @@ export default function AvatarUploader({onUpload}: AvatarUploaderProps) {
                         />
                         <S.RightAlignButton onClick={handleSave}>Save</S.RightAlignButton>
                     </S.CropWrapper>
-                </S.Grid>
+                </S.Grid></AnimateEntry>
             )}
             {steps.result && (
                 <S.Grid>
                     <LogoPreview src={cropper.result}/>
-                    <DropInstructions/>
+                    <AnimateEntry><DropInstructions/></AnimateEntry>
                 </S.Grid>
             )}
             <input hidden ref={inputImageRef} type="file" accept={dragDrop.accept.join(",")}/>
